@@ -15,15 +15,14 @@ final _listItem = [
     'assets/images/images.jpeg',
   ];
 
-void goToScreen(int index) {
-
-}
-
 class _HomeViewState extends State<HomeView> {
-  var renderlistItem = _listItem.map((item) {
+  @override
+  Widget build(BuildContext context) {
+    void renderlistItem() {
+      _listItem.map((item) {
       var index =  _listItem.indexOf(item);
       return GestureDetector(
-        onTap: () => Get.toNamed(RouteNames.BLOG),
+        onTap: () => index == 0? Get.toNamed(RouteNames.PEOPLE): Get.toNamed(RouteNames.BLOG),
         child:
           Card(
             color: Colors.transparent,
@@ -51,8 +50,7 @@ class _HomeViewState extends State<HomeView> {
           )
         );
       });
-  @override
-  Widget build(BuildContext context) {
+    }
     return Scaffold(
       backgroundColor: Colors.grey[600],
       // appBar: AppBar(
@@ -122,41 +120,42 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  children: _listItem.map((item) => 
-                    GestureDetector(
-                      onTap: () => {},
-                      child:
-                        Card(
-                        color: Colors.transparent,
-                        elevation: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: AssetImage(item),
-                              fit: BoxFit.cover
-                            ),
-                          ),
-                          child: Transform.translate(
-                            offset: Offset(50, -50),
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white
+                  children: 
+                    _listItem.map((item) => 
+                      GestureDetector(
+                        onTap: () =>  _listItem.indexOf(item) == 0? Get.toNamed(RouteNames.PEOPLE): Get.toNamed(RouteNames.BLOG),
+                        child:
+                          Card(
+                          color: Colors.transparent,
+                          elevation: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image: AssetImage(item),
+                                fit: BoxFit.cover
                               ),
-                              child: Icon(Icons.bookmark_border, size: 15,)
+                            ),
+                            child: Transform.translate(
+                              offset: Offset(50, -50),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white
+                                ),
+                                child: Icon(Icons.bookmark_border, size: 15,)
+                              ),
                             ),
                           ),
-                        ),
-                    ))
-                  ).toList(),
+                      ))
+                    ).toList(),
                 )
               )
             ],

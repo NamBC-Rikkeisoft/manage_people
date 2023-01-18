@@ -7,5 +7,4 @@ class BlogDetailBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => GetIt.instance<BlogDetaiController>());
   }
-  
 }
