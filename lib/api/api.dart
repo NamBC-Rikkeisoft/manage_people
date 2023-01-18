@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 enum Method { GET, POST}
 
-class ApiServiceBase extends GetConnect{
+class ApiServiceBase extends GetConnect {
   Result _result = Result();
 
   Future<Result> callManualy({Method method = Method.GET, required String urlApi, required Map<String, String> param }) async {
@@ -40,8 +40,16 @@ class ApiServiceBase extends GetConnect{
       return _result;
   }
 
-  Future<http.Response> getDataFromUrlWithResponse({required String urlApi}) async {
-      return await http.get(Uri.parse(urlApi));
+  Future<Response> getDataFromUrlWithResponse({required String urlApi}) async {
+      // return await http.get(Uri.parse(urlApi));
+      var res = await get(urlApi);
+      if (res.isOk) {
+        _result = Result.fromJson(res.bodyString!);
+        return res;
+      }
+      
+      // Log error
+      return res;
   }
 
   Future<Result> postDataFromUrl({required String urlApi, required Map<String, String> param }) async {

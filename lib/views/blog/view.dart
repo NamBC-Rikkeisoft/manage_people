@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:manage_peoples/models/blog.dart';
 import 'package:manage_peoples/ultis/constants.dart';
 import 'package:manage_peoples/views/blog/controller.dart';
+import 'package:manage_peoples/views/blog/widgets/item_blog.dart';
 
 class BlogView extends StatefulWidget {
   @override
@@ -13,12 +14,10 @@ class BlogView extends StatefulWidget {
 
 class _BlogViewState extends State<BlogView> {
   List<BlogModel> _loadedPhotos = [];
-  String defaultImg = "assets/images/banner-home.png";
-  late BlogController blogController;
+  BlogController blogController = BlogController();
 
   // The function that fetches data from the API
   Future<void> _fetchData() async {
-    blogController = BlogController();
     List<BlogModel> blogsValues = await blogController.getAllData(Utils.urlBlog);
     setState(() {
       _loadedPhotos = blogsValues;
@@ -48,15 +47,25 @@ class _BlogViewState extends State<BlogView> {
               // The ListView that displays photos
               : ListView.builder(
                   itemCount: _loadedPhotos.length,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return ListTile(
-                      leading: Image.asset(defaultImg),
-                      title: Text(_loadedPhotos[index].title!),
-                      subtitle:
-                          Text('Photo ID: ${_loadedPhotos[index].id}'),
-                    );
-                  },
+                  // itemBuilder: (ctx, index) {
+                  //   return ListTile(
+                  //     leading: Image.asset(defaultImg),
+                  //     title: Text(_loadedPhotos[index].title!),
+                  //     subtitle:
+                  //         Text('Photo ID: ${_loadedPhotos[index].id}'),
+                  //         onTap: blogController.clickItemBlog(index),
+                  //   );
+                  // },
+                  itemBuilder: (BuildContext ctx, index) => ItemBlog(
+                    blogModel: _loadedPhotos[index],
+                    // onTap: blogController.clickItemBlog(0),
+                  ),
                 )
+
+                // itemBuilder: (ctx, index) => ItemSugar(
+                //                 model: controller.sugars[index],
+                //                 onTap: () => controller.clickItemSugar(index),
+                //               ),
           )
       ); // bod
   }

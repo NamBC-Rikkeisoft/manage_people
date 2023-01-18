@@ -16,4 +16,9 @@ class BlogModel {
     thumbnailUrl = json['thumbnailUrl'];
     title = json['title'];
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BlogModel && runtimeType == other.runtimeType && id == other.id;
 }

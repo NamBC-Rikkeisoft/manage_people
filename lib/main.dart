@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: 'Flutter Demo',
           // theme: defaultTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute: RouteNames.BLOG,
+          initialRoute: RouteNames.HOME,
           // routes: {
           //   for (RouteModel e in CommonPage.pages) e.name: (context) => e.page
           // },
